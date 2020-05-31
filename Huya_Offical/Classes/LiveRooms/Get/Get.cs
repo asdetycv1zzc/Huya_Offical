@@ -11,14 +11,17 @@ namespace Huya_Offical.Classes.LiveRooms.Get
 {
     public class Get
     {
+        private string JsonData;
         public struct LiveRoomInformation
         {
+            public int Page;
+            public int PageSize;
             public string DJName;
             public string RoomName;
-            public string gameFullName;
-            public long WatchingAmount;
-            public Stream AvatarPictureStream; //主播头像的照片流
-            public Stream ScreenshotPictureStream; //屏幕截图的照片流
+            public string GameFullName;
+            public int WatchingAmount;
+            public string AvatarPictureAddress; //主播头像的照片流地址
+            public string ScreenshotPictureAddress; //屏幕截图的照片流地址
         };
         public string OriginJson(HttpGet.HttpGet.HttpRequestStruction httpRequestStruction)
         {
@@ -45,10 +48,79 @@ namespace Huya_Offical.Classes.LiveRooms.Get
             }
             return result;
         }
-        private string DJName(string JsonData,int Num)
+        private int TotalPage()
         {
             Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var TotalPage = Convert.ToInt32(rb.data.totalPage);
+            return TotalPage;
         }
+        private int Page()
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var Page = Convert.ToInt32(rb.data.page);
+            return Page;
+        }
+        private int PageSize()
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var PageSize = Convert.ToInt32(rb.data.pageSize);
+            return PageSize;
+        }
+        private string DJName(int Num)
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var DJName = rb.data.datas[Num].nick;
+            return DJName;
+        }
+        private string RoomName(int Num)
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var RoomName = rb.data.datas[Num].roomName;
+            return RoomName;
+        }
+        private string GameFullName(int Num)
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var GameFullName = rb.data.datas[Num].gameFullName;
+            return GameFullName;
+        }
+        private int WatchingAmount(int Num)
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var WatchingAmount = Convert.ToInt32(rb.data.datas[Num].totalCount);
+            return WatchingAmount;
+        }
+        private string AvatarPictureAddress(int Num)
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var AvatarPictureAddress = rb.data.datas[Num].avatar180;
+            return AvatarPictureAddress;
+        }
+        private string ScreenshotPictureAddress(int Num)
+        {
+            Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
+            var ScreenshotPictureAddress = rb.data.datas[Num].screenshot;
+            return ScreenshotPictureAddress;
+        }
+        public LiveRoomInformation PageInformation(int Page)
+        {
+            string HuyaAddress = "https://www.huya.com/cache.php?m=LiveList&do=getLiveListByPage&tagAll=0&page=" + Page.ToString();
+            string HuyaHost = "www.huya.com";
+            HttpGet.HttpGet.HttpRequestStruction httpRequestStruction = new HttpGet.HttpGet.HttpRequestStruction()
+            {
+                Uri = HuyaAddress,
+                Method = "GET",
+                Host = HuyaHost,
+                Referer = HuyaHost,
+                AcceptEncoding = "None"
+            };
 
+            JsonData = OriginJson(httpRequestStruction);
+            var Size = PageSize();
+            LiveRoomInformation liveRoomInformation = new LiveRoomInformation()
+            {
+            }
+        }
     }
+
 }
