@@ -6,9 +6,9 @@ using System.Windows.Media.Imaging;
 
 namespace Huya_Offical.Classes.LiveRooms.Build
 {
-    public class Build
+    public class OnlinePic
     {
-        private struct ImageStruction
+        public struct ImageStruction
         {
             public string Name;
             public double Height;
@@ -16,7 +16,7 @@ namespace Huya_Offical.Classes.LiveRooms.Build
             public Thickness Margin;
             public string Source;
         }
-        private bool BuildOnlinePic(ImageStruction imageStruction)
+        public bool Build(ImageStruction imageStruction)
         {
             try
             {

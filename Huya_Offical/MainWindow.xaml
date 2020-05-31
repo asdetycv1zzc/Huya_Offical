@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Huya_Offical"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="950" Width="1690">
     <Grid>
-        <Image HorizontalAlignment="Left" Height="58" Margin="87,94,0,0" VerticalAlignment="Top" Width="129"/>
+        <Image HorizontalAlignment="Left" Height="190" Margin="10,35,0,0" VerticalAlignment="Top" Width="338"/>
+        <Image HorizontalAlignment="Left" Height="190" Margin="358,10,0,0" VerticalAlignment="Top" Width="338"/>
 
     </Grid>
 </Window>

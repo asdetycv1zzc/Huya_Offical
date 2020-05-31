@@ -70,7 +70,8 @@
     </Compile>
     <Compile Include="Classes\HttpGet\HttpGet.cs" />
     <Compile Include="Classes\Json\Json.cs" />
-    <Compile Include="Classes\LiveRooms\Build\Build.cs" />
+    <Compile Include="Classes\LiveRooms\Build\LiveRooms.cs" />
+    <Compile Include="Classes\LiveRooms\Build\OnlinePic.cs" />
     <Compile Include="Classes\LiveRooms\Get\Get.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

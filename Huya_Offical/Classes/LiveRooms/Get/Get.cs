@@ -11,6 +11,7 @@ namespace Huya_Offical.Classes.LiveRooms.Get
         {
             public int Page;
             public int PageSize;
+            public int TotalPage;
             public string[] DJName;
             public string[] RoomName;
             public string[] GameFullName;
@@ -18,7 +19,7 @@ namespace Huya_Offical.Classes.LiveRooms.Get
             public string[] AvatarPictureAddress; //主播头像的照片流地址
             public string[] ScreenshotPictureAddress; //屏幕截图的照片流地址
         };
-        public string OriginJson(HttpGet.HttpGet.HttpRequestStruction httpRequestStruction)
+        private string OriginJson(HttpGet.HttpGet.HttpRequestStruction httpRequestStruction)
         {
             HttpGet.HttpGet httpGet = new HttpGet.HttpGet();
             var result = httpGet.Get(httpRequestStruction);
@@ -43,7 +44,7 @@ namespace Huya_Offical.Classes.LiveRooms.Get
             }
             return result;
         }
-        private int TotalPage()
+        public int TotalPage()
         {
             Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
             var TotalPage = Convert.ToInt32(rb.data.totalPage);
@@ -55,7 +56,7 @@ namespace Huya_Offical.Classes.LiveRooms.Get
             var Page = Convert.ToInt32(rb.data.page);
             return Page;
         }
-        private int PageSize()
+        public int PageSize()
         {
             Json.Json.RootObject rb = JsonConvert.DeserializeObject<Json.Json.RootObject>(JsonData);
             var PageSize = Convert.ToInt32(rb.data.pageSize);
@@ -131,6 +132,7 @@ namespace Huya_Offical.Classes.LiveRooms.Get
             {
                 Page = Page,
                 PageSize = PageSize(),
+                TotalPage = TotalPage(),
                 DJName = DJNames,
                 RoomName = RoomNames,
                 GameFullName = GameFullNames,
