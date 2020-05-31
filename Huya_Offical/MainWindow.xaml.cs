@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Panuon.UI.Silver;
+using Panuon.UI.Silver.Core;
+using Newtonsoft.Json;
 namespace Huya_Offical
 {
     /// <summary>
