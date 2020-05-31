@@ -16,12 +16,12 @@ namespace Huya_Offical.Classes.LiveRooms.Get
         {
             public int Page;
             public int PageSize;
-            public string DJName;
-            public string RoomName;
-            public string GameFullName;
-            public int WatchingAmount;
-            public string AvatarPictureAddress; //主播头像的照片流地址
-            public string ScreenshotPictureAddress; //屏幕截图的照片流地址
+            public string[] DJName;
+            public string[] RoomName;
+            public string[] GameFullName;
+            public int[] WatchingAmount;
+            public string[] AvatarPictureAddress; //主播头像的照片流地址
+            public string[] ScreenshotPictureAddress; //屏幕截图的照片流地址
         };
         public string OriginJson(HttpGet.HttpGet.HttpRequestStruction httpRequestStruction)
         {
@@ -104,6 +104,12 @@ namespace Huya_Offical.Classes.LiveRooms.Get
         }
         public LiveRoomInformation PageInformation(int Page)
         {
+            string[] DJNames = { "" };
+            string[] RoomNames = { "" };
+            string[] GameFullNames = { "" };
+            int[] WatchingAmounts = { 0 };
+            string[] AvatarPictureAddresses = { "" };
+            string[] ScreenshotPictureAddresses = { "" };
             string HuyaAddress = "https://www.huya.com/cache.php?m=LiveList&do=getLiveListByPage&tagAll=0&page=" + Page.ToString();
             string HuyaHost = "www.huya.com";
             HttpGet.HttpGet.HttpRequestStruction httpRequestStruction = new HttpGet.HttpGet.HttpRequestStruction()
@@ -117,9 +123,27 @@ namespace Huya_Offical.Classes.LiveRooms.Get
 
             JsonData = OriginJson(httpRequestStruction);
             var Size = PageSize();
+            for(int i = 1; i <= Size;i++)
+            {
+                DJNames[i - 1] = DJName(i);
+                RoomNames[i - 1] = RoomName(i);
+                GameFullNames[i - 1] = GameFullName(i);
+                WatchingAmounts[i - 1] = WatchingAmount(i);
+                AvatarPictureAddresses[i - 1] = AvatarPictureAddress(i);
+                ScreenshotPictureAddresses[i - 1] = ScreenshotPictureAddress(i);
+            }
             LiveRoomInformation liveRoomInformation = new LiveRoomInformation()
             {
-            }
+                Page = Page,
+                PageSize = PageSize(),
+                DJName = DJNames,
+                RoomName = RoomNames,
+                GameFullName = GameFullNames,
+                WatchingAmount = WatchingAmounts,
+                AvatarPictureAddress = AvatarPictureAddresses,
+                ScreenshotPictureAddress = ScreenshotPictureAddresses
+            };
+            return liveRoomInformation;
         }
     }
 
